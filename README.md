@@ -1,9 +1,9 @@
 grumble.js
 ==========
 
-Add a bubble to any element; configure it's rotation on a 360 degree axis and define its distance from the centre of the element.
+Add a bubble to any element; configure its rotation on a 360 degree axis and define its distance from the centre of the element.
 
-Bubbles size adapts to contents - perfect when text is localised and size can not be determined up front.
+Bubble size adapts to contents - perfect when text is localised and size can not be determined up front.
 
 Author
 ------
@@ -19,4 +19,4 @@ To do
 Licence
 -------
 
-Do what you like, just dont be an arsehole.
+Do what you like, just don't be an arsehole.
