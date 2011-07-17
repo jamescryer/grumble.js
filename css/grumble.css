@@ -1,11 +1,11 @@
-.bubble{
+.grumble{
     position:absolute;
     background-image: url(/images/bubble-sprite.png);
     background-repeat: no-repeat;
     z-index: 99999;
     }
 
-    .bubble-text {
+    .grumble-text {
         position:absolute;
         text-align:center;
         z-index: 99999;
@@ -14,15 +14,15 @@
         text-transform:uppercase;
         font-size: .9em;
         }
-        .ie6 .bubble-text {
+        .ie6 .grumble-text {
             display:block;
             }
-        .bubble-text .outer {
+        .grumble-text .outer {
             display: table-cell;
             vertical-align: middle;
             color:white;
             }
-            .ie6 .bubble-text .outer {
+            .ie6 .grumble-text .outer {
                 display: block;
                 position: absolute;
                 top: 48%;
@@ -33,22 +33,22 @@
             top: -50%
             }
 
-    .bubble-text50 .outer{padding:6px;}
-    .bubble-text100 .outer{padding:8px;}
-    .bubble-text150 .outer{padding:10px;}
-    .bubble-text200 .outer{padding:12px;}
+    .grumble-text50 .outer{padding:6px;}
+    .grumble-text100 .outer{padding:8px;}
+    .grumble-text150 .outer{padding:10px;}
+    .grumble-text200 .outer{padding:12px;}
 
-    .bubble50 {background-position: 0 0;}
-    .bubble100 {background-position: 0 -50px; }
-    .bubble150 {background-position: 0 -150px;}
-    .bubble200 {background-position: 0 -300px; }
+    .grumble50 {background-position: 0 0;}
+    .grumble100 {background-position: 0 -50px; }
+    .grumble150 {background-position: 0 -150px;}
+    .grumble200 {background-position: 0 -300px; }
 
-    .alt-bubble50 {background-position: -200px 0;}
-    .alt-bubble100 { background-position: -200px -50px; }
-    .alt-bubble150 {background-position: -200px -150px;}
-    .alt-bubble200 {background-position: -200px -300px; }
+    .alt-grumble50 {background-position: -200px 0;}
+    .alt-grumble100 { background-position: -200px -50px; }
+    .alt-grumble50 {background-position: -200px -150px;}
+    .alt-grumble200 {background-position: -200px -300px; }
 
-    .bubble-button {
+    .grumble-button {
         position: absolute;
         width: 20px;
         height: 12px;

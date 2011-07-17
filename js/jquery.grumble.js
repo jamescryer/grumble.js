@@ -20,7 +20,7 @@
 	},
 	liveBubbles = [];
 
-    $.fn.bubble = function (settings) {
+    $.fn.grumble = function (settings) {
 
 		if( typeof settings === 'string' ){
 			this.trigger({type:settings+'.bubble'});

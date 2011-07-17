@@ -1,14 +1,22 @@
-Speach Bubbles
-=========
+grumble.js
+==========
 
 Add a bubble to any element; configure it's rotation on a 360 degree axis and define its distance from the centre of the element.
 
 Bubbles size adapts to contents - perfect when text is localised and size can not be determined up front.
 
-Author: James Cryer, Huddle.com
+Author
+------
+James Cryer / Huddle.com
 
 To do
-----------------------
+-----
 
-+ Better documentation
-+ Create examples
++ Remove dependency on Mustache.js
++ Create API documentation
++ Create HTML examples
+
+Licence
+-------
+
+Do what you like, just dont be an arsehole.
