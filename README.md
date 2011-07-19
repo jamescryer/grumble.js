@@ -9,12 +9,6 @@ Author
 ------
 James Cryer / Huddle.com
 
-To do
------
-
-+ Remove dependency on Mustache.js
-+ Create API documentation
-+ Create HTML examples
 
 Licence
 -------
