@@ -5,16 +5,14 @@ Add a bubble to any element; configure its rotation on a 360 degree axis and def
 
 Bubble size adapts to contents - perfect when text is localised and size can not be determined up front.
 
+Examples
+--------
+
+[grumble.js examples](http://jamescryer.github.com/grumble.js/)
+
 Author
 ------
 James Cryer / Huddle.com
-
-To do
------
-
-+ Remove dependency on Mustache.js
-+ Create API documentation
-+ Create HTML examples
 
 Licence
 -------
