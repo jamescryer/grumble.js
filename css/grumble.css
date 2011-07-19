@@ -1,6 +1,6 @@
 .grumble{
     position:absolute;
-    background-image: url(/images/bubble-sprite.png);
+    background-image: url(../images/bubble-sprite.png);
     background-repeat: no-repeat;
     z-index: 99999;
     }

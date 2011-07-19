@@ -1,10 +1,10 @@
-(function ($, Mustache, Bubble) {
+(function ($, Bubble) {
 
-	// $.fn.bubble.defaults references this object. $.fn.bubble.defaults should be used for extension
+	// $.fn.grumble.defaults references this object. $.fn.grumble.defaults should be used for extension
 	var defaults = {
 		text: '', // Accepts html
 		angle: 45, // 0-360
-		size: 100, // Default size
+		size: 50, // Default size
 		sizeRange: [50,100,150,200], // Depending on the amount of text, one of these sizes (px) will be used
 		distance: 0,
 		type: '', // this string is appended to the bubble CSS classname
@@ -12,7 +12,7 @@
 		hideAfter: false,
 		hideOnClick: false,
 		hideButton: false,
-		buttonTemplate: '<div class="bubble-button" style="display:none" title="{{hideText}}">x</div>',
+		buttonTemplate: '<div class="grumble-button" style="display:none" title="{hideText}">x</div>',
 		buttonHideText: 'Hide',
 		onHide: function(){},
 		onShow: function(){},
@@ -29,10 +29,10 @@
 
 		return this.each(function () {
             var $me = $(this),
-				options = $.extend({}, $.fn.bubble.defaults, settings, $me.data('bubble') || {}),
+				options = $.extend({}, $.fn.grumble.defaults, settings, $me.data('bubble') || {}),
 				offset = $me.offset(),
 				size = calculateTextHeight(options.size, options.sizeRange, options.text),
-				bubble,
+				grumble,
 				button,
 				_private;
 
@@ -42,7 +42,7 @@
 			_private = {
 
 				init: function(){
-					bubble = new Bubble({
+					grumble = new Bubble({
 						text: options.text,
 						top: options.top,
 						left: options.left,
@@ -55,7 +55,7 @@
 					if(options.hideButton) this.addButton();
 
 					liveBubbles.push({
-						bubble: bubble,
+						grumble: grumble,
 						button: button,
 						onHide: function(){
 							_private.doOnBeginHideCallback();
@@ -70,12 +70,14 @@
 				},
 
 				addButton: function(){
-					button = $( Mustache.to_html(options.buttonTemplate,{hideText:options.buttonHideText}))
+					var tmpl = Bubble.prototype.tmpl;
+				
+					button = $( tmpl(options.buttonTemplate,{hideText:options.buttonHideText}))
 						.css({
-							left:bubble.realLeft+size-10,
-							top:bubble.realTop+size-10
+							left:grumble.realLeft+size-10,
+							top:grumble.realTop+size-10
 						})
-						.insertAfter(bubble.text);
+						.insertAfter(grumble.text);
 				},
 
 				rePositionButton: function(){
@@ -84,27 +86,27 @@
 
 					button
 						.css({
-							left:bubble.realLeft+size-10,
-							top:bubble.realTop+size-10
+							left:grumble.realLeft+size-10,
+							top:grumble.realTop+size-10
 						});
 				},
 
 				createFxQueue : function(){
-					bubble.bubble.queue('fx');
-					bubble.text.queue('fx');
-					bubble.bubble.delay(options.showAfter);
-					bubble.text.delay(options.showAfter);
+					grumble.bubble.queue('fx');
+					grumble.text.queue('fx');
+					grumble.bubble.delay(options.showAfter);
+					grumble.text.delay(options.showAfter);
 					if (button) button.delay(options.showAfter);
 				},
 
 				showBubble: function(){
 					if($.browser.msie === true){
-						bubble.bubble.queue('fx',function(next){
-							bubble.bubble.show();
+						grumble.bubble.queue('fx',function(next){
+							grumble.bubble.show();
 							next();
 						});
-						bubble.text.queue('fx',function(next){
-							bubble.text.show();
+						grumble.text.queue('fx',function(next){
+							grumble.text.show();
 							next();
 						});
 						if(button){
@@ -114,38 +116,38 @@
 							});
 						}
 					} else {
-						bubble.bubble.fadeTo('fast',1);
-						bubble.text.fadeTo('fast',1);
+						grumble.bubble.fadeTo('fast',1);
+						grumble.text.fadeTo('fast',1);
 						if(button) button.fadeTo('fast',1);
 					}
 
-					bubble.bubble.queue('fx',function(next){
-						if(options.hideOnClick) _private.hideOnClick();
+					grumble.bubble.queue('fx',function(next){
+						if(options.hideOnClick || options.hideButton) _private.hideOnClick();
 						next();
 					});
 
-					bubble.bubble.queue('fx',function(next){
+					grumble.bubble.queue('fx',function(next){
 						_private.doOnShowCallback();
 						next();
 					});
 				},
 
 				hideBubble: function(){
-					bubble.bubble.delay(options.hideAfter);
-					bubble.text.delay(options.hideAfter);
+					grumble.bubble.delay(options.hideAfter);
+					grumble.text.delay(options.hideAfter);
 
-					bubble.bubble.queue('fx',function(next){
+					grumble.bubble.queue('fx',function(next){
 						_private.doOnBeginHideCallback();
 						next();
 					});
 
 					if($.browser.msie === true){
-						bubble.bubble.queue('fx',function(next){
-							bubble.bubble.hide();
+						grumble.bubble.queue('fx',function(next){
+							grumble.bubble.hide();
 							next();
 						});
-						bubble.bubble.queue('fx',function(next){
-							bubble.text.hide();
+						grumble.bubble.queue('fx',function(next){
+							grumble.text.hide();
 							next();
 						});
 						if(button){
@@ -155,34 +157,37 @@
 							});
 						}
 					} else {
-						bubble.bubble.fadeOut();
-						bubble.text.fadeOut();
+						
+						console.log(grumble);
+						grumble.bubble.fadeOut();
+						grumble.text.fadeOut();
 						if (button) button.fadeOut();
 					}
 
-					bubble.bubble.queue('fx',function(next){
+					grumble.bubble.queue('fx',function(next){
 						_private.doOnHideCallback();
 						next();
 					});
 				},
 
 				doOnBeginHideCallback: function(){
-					options.onBeginHide(bubble, button);
+					options.onBeginHide(grumble, button);
 				},
 
 				doOnHideCallback: function(){
-					options.onHide(bubble, button);
+					options.onHide(grumble, button);
 				},
 
 				doOnShowCallback: function(){
-					options.onShow(bubble, button);
+					options.onShow(grumble, button);
 				},
 
 				hideOnClick: function(){
+				console.log('hello');
 					$(document.body)
 						.bind('click.bubble',function(){
-							_private.hideBubble(bubble, button);
-							$(this).unbind('click.bubble');
+							_private.hideBubble(grumble, button);
+							//$(this).unbind('click.bubble');
 						});
 				},
 
@@ -192,7 +197,7 @@
 							top = offset.top + ($me.height()),
 							left = offset.left + ($me.width()/2);
 
-						bubble.adjust({
+						grumble.adjust({
 							top: top,
 							left: left
 						});
@@ -201,7 +206,7 @@
 					});
 
 					$me.bind('hide.bubble',  function(){
-						_private.hideBubble(bubble, button);
+						_private.hideBubble(grumble, button);
 						$(this).unbind('hide.bubble');
 					});
 
@@ -212,13 +217,13 @@
         });
 	};
 
-	$.fn.bubble.defaults = defaults;
+	$.fn.grumble.defaults = defaults;
 
 	$(document).bind('keyup.bubble',function(event){ // Pressing the escape key will stop all bubbles
 		if(event.keyCode === 27){
 			$.each(liveBubbles, function(index,object){
-				object.bubble.bubble.clearQueue().hide();
-				object.bubble.text.clearQueue().hide();
+				object.grumble.bubble.clearQueue().hide();
+				object.grumble.text.clearQueue().hide();
 				if(object.button) object.button.clearQueue().hide();
 				object.onHide();
 			});
@@ -240,4 +245,4 @@
 		return defaultSize;
 	}
 
-}(jQuery, Mustache, Bubble));
+}(jQuery, Bubble));

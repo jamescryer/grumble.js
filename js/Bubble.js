@@ -1,4 +1,4 @@
-(function($, window, Mustache){
+(function($, window){
 
     var defaults = {
         type: '',
@@ -6,10 +6,10 @@
         top: 0,
         left: 0,
         angle: 45,
-        size: 100,
+        size: 50,
         distance: 50,
-        template: '<div class="bubble" style="display:none;filter:progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\')">&#160;</div>',
-        textTemplate: '<div class="bubble-text" style="display:none;"><div class="outer"><div class="inner">{{{text}}}</div></div></div>'
+        template: '<div class="grumble" style="display:none;filter:progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\')">&#160;</div>',
+        textTemplate: '<div class="grumble-text" style="display:none;"><div class="outer"><div class="inner">{text}</div></div></div>'
     };
 
     window.Bubble = function(options){
@@ -22,8 +22,9 @@
     window.Bubble.prototype = {
 
         create: function(){
-            this.bubble = $( Mustache.to_html(this.options.template) );
-            this.text = $( Mustache.to_html(this.options.textTemplate, { text:this.options.text }));
+			var tmpl = window.Bubble.prototype.tmpl;
+            this.bubble = $( tmpl(this.options.template) );
+            this.text = $( tmpl(this.options.textTemplate, { text:this.options.text }));
             this.setBubbleRotation();
             this.prepare();
         },
@@ -60,11 +61,11 @@
 
             this.text
                 .css(this.css)
-                .addClass('bubble-text'+this.options.size);
+                .addClass('grumble-text'+this.options.size);
 
             this.bubble
                 .css(this.css)
-                .addClass(this.options.type+'bubble'+this.options.size);
+                .addClass(this.options.type+'grumble'+this.options.size);
 
             // remember calculated position for use by external components
             this.realLeft = this.css.left;
@@ -135,6 +136,16 @@
         adjust: function(options){
             $.extend(this.options,options);
             this.prepare();
-        }
+        },
+		
+		tmpl: function(template, obj, escapeContent) {
+			for (var key in obj) {
+				if (obj[key] === null) obj[key] = '';
+				if (typeof (obj[key]) === 'object' && obj[key].length) { obj[key] = obj[key].join(', '); }
+				template = template.replace(new RegExp('{' + key + '}', 'g'), escapeContent ? escape(obj[key]) : obj[key]);
+			}
+			return template;
+		}
+		
     };
-}($, window, Mustache));
+}($, window));
