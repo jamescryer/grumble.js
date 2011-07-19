@@ -157,8 +157,6 @@
 							});
 						}
 					} else {
-						
-						console.log(grumble);
 						grumble.bubble.fadeOut();
 						grumble.text.fadeOut();
 						if (button) button.fadeOut();
@@ -183,7 +181,6 @@
 				},
 
 				hideOnClick: function(){
-				console.log('hello');
 					$(document.body)
 						.bind('click.bubble',function(){
 							_private.hideBubble(grumble, button);
