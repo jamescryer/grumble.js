@@ -11,7 +11,7 @@
 		showAfter: 0,
 		hideAfter: false,
 		hideOnClick: false,
-		hideButton: false,
+		hasHideButton: false,
 		buttonTemplate: '<div class="grumble-button" style="display:none" title="{hideText}">x</div>',
 		buttonHideText: 'Hide',
 		onHide: function(){},
@@ -52,7 +52,7 @@
 						type: options.type
 					});
 
-					if(options.hideButton) this.addButton();
+					if(options.hasHideButton) this.addButton();
 
 					liveBubbles.push({
 						grumble: grumble,
@@ -122,7 +122,7 @@
 					}
 
 					grumble.bubble.queue('fx',function(next){
-						if(options.hideOnClick || options.hideButton) _private.hideOnClick();
+						if(options.hideOnClick || options.hasHideButton) _private.hideOnClick();
 						next();
 					});
 

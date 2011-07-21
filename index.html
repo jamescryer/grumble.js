@@ -129,10 +129,11 @@
 				Any distance can be specified.
 				Any CSS style can be applied.
 				There's auto-magic size adjustment for use with localised text.
+				FX queues for animating multiple grumbles.
 				And it works in IE6+, and modern browsers.
 			</p>
 			
-			<p>grumble.js is currently written as a jquery plugin.</p>
+			<p>grumble.js is currently written as a jquery plugin and can be found on <a href="https://github.com/jamescryer/grumble.js">Github</a></p>
 			
 			<pre>
 $('h1').grumble({
@@ -159,8 +160,8 @@ $('h1').grumble({
 $('#grumble1').grumble(
 	{
 		text: '', 
-		angle: 0, 
-		distance: 20, 
+		angle: 200, 
+		distance: 3, 
 		showAfter: 1000,
 		hideAfter: 2000
 	}
@@ -178,11 +179,11 @@ $('#grumble2').grumble(
 $('#grumble3').grumble(
 	{
 		text: 'Click me!',
-		angle: 330,
-		distance: 30,
+		angle: 150,
+		distance: 3,
 		showAfter: 3000,
 		hideAfter: false,
-		hideButton: true,
+		hasHideButton: true,
 		buttonHideText: 'Pop!'
 	}
 );
@@ -194,9 +195,15 @@ $('#grumble4').grumble(
 		showAfter: 4000,
 		hideAfter: 2000,
 	}
+);
 );</pre>
 						
 		</div>
+		
+		<p>
+			And lots, lots more.
+		</p>
+		
 		
 		<p>
 			Can I haz callbacks? Sure.
@@ -215,8 +222,20 @@ $('#myElement').grumble({
 	onHide: function () { 
 		console.log('triggered when hide animation completes');
 	}
-});		
+});
 </pre>
+		
+		<h2>What is this magic?</h2>
+		<p>
+			grumble.js uses buzzwords like CSS3 and 'maths' to position itself exactly where you want it.
+			Modern browsers use <a href="http://www.w3.org/TR/css3-2d-transforms/">CSS3 transforms</a> with IE6+ using non-standard <a href="http://msdn.microsoft.com/en-us/library/ms533014%28v=vs.85%29.aspx">Matrix filters</a>.
+			Image spriting is used for actual bubble image, you can change this as you want - it's just CSS.
+		</p>
+		
+		<h2>Credit due</h2>
+		<p>
+			Big thanks to everyone involved in creating the idea and design of grumble.js (aka. Huddle Bubbles). Let me know if you want explicit mention.
+		</p>
 		
 		<footer>
 			<br/>
@@ -247,8 +266,8 @@ $('#myElement').grumble({
 			$('#grumble1').grumble(
 				{
 					text: '', 
-					angle: 0, 
-					distance: 20, 
+					angle: 200, 
+					distance: 3, 
 					showAfter: 1000,
 					hideAfter: 2000
 				}
@@ -266,11 +285,11 @@ $('#myElement').grumble({
 			$('#grumble3').grumble(
 				{
 					text: 'Click me!',
-					angle: 330,
-					distance: 30,
+					angle: 150,
+					distance: 3,
 					showAfter: 3000,
 					hideAfter: false,
-					hideButton: true, // just shows the button
+					hasHideButton: true, // just shows the button
 					buttonHideText: 'Pop!'
 				}
 			);
