@@ -104,6 +104,7 @@
             this.bubble.css({
                 '-moz-transform': 'rotate('+this.rotateDeg+'deg)',
                 '-webkit-transform': 'rotate('+this.rotateDeg+'deg)',
+				'-o-transform': 'rotate('+this.rotateDeg+'deg)',
                 'transform': 'rotate('+this.rotateDeg+'deg)'
             });
         },
