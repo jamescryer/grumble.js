@@ -72,6 +72,9 @@
 				addButton: function(){
 					var tmpl = Bubble.prototype.tmpl;
 				
+					// I think this code smells.. Responsibility for the view should be in the same place.
+					// Could possibly move this into bubble.js
+					// or extract all view logic into a third component
 					button = $( tmpl(options.buttonTemplate,{hideText:options.buttonHideText}))
 						.css({
 							left:grumble.realLeft+size-10,
@@ -230,8 +233,8 @@
 	function calculateTextHeight(defaultSize, range, text){
 		var el = $('<div style="position:absolute;visibilty:hidden;width:'+defaultSize+'px;">'+text+'</div>')
 					.appendTo($(document.body)),
-			height = el.outerHeight()*2+(defaultSize*0.20)/*the 20% is approx padding: could be more clever*/,
-			index = range.indexOf(defaultSize);
+			height = el.outerHeight()*2+(defaultSize*0.20),/*the 20% is approx padding: could be more clever*/
+			index = $.inArray(defaultSize, range);
 
 		el.remove();
 
