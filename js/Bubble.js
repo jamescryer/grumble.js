@@ -1,3 +1,6 @@
+/**   (c) 2011 James Cryer, Huddle (www.huddle.com) 	*/
+/**   http://jamescryer.github.com/grumble.js/ 		*/
+
 (function($, window){
 
     var defaults = {
@@ -22,7 +25,7 @@
     window.Bubble.prototype = {
 
         create: function(){
-			var tmpl = window.Bubble.prototype.tmpl;
+	    var tmpl = window.Bubble.prototype.tmpl;
             this.bubble = $( tmpl(this.options.template) );
             this.text = $( tmpl(this.options.textTemplate, { text:this.options.text }));
             this.setBubbleRotation();
