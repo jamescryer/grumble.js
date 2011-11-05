@@ -15,20 +15,19 @@
         textTemplate: '<div class="grumble-text" style="display:none;"><div class="outer"><div class="inner">{text}</div></div></div>'
     };
 
-    window.Bubble = function(options){
+    window.GrumbleBubble = function(options){
         this.options = $.extend({},defaults,options);
         this.context = document.body;
         this.css = {};
         this.create();
     };
 
-    window.Bubble.prototype = {
+    window.GrumbleBubble.prototype = {
 
         create: function(){
-	    var tmpl = window.Bubble.prototype.tmpl;
+	    var tmpl = window.GrumbleBubble.prototype.tmpl;
             this.bubble = $( tmpl(this.options.template) );
             this.text = $( tmpl(this.options.textTemplate, { text:this.options.text }));
-            this.setBubbleRotation();
             this.prepare();
         },
 
@@ -45,6 +44,8 @@
 
         prepare: function(){
             var isAlreadyInserted = this.bubble.get(0).parentNode;
+
+			this.setBubbleRotation();
 
             this.applyStyles();
 

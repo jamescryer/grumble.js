@@ -7,11 +7,11 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title></title>
+	<title>Examples and documentation on grumble.js</title>
 	<meta name="description" content="Examples and documentation on grumble.js">
 	<meta name="author" content="James Cryer">
 
-	<link rel="stylesheet" href="css/grumble.min.css?v=1">
+	<link rel="stylesheet" href="css/grumble.min.css?v=2">
 
 	<style>
 		body {
@@ -208,11 +208,6 @@ $('#grumble4').grumble(
 		</div>
 		
 		<p>
-			And lots, lots more.
-		</p>
-		
-		
-		<p>
 			Can I haz callbacks? Sure.
 		</p>
 		
@@ -231,6 +226,15 @@ $('#myElement').grumble({
 	}
 });
 </pre>
+		<!--
+		<h2>The darkside of grumble.js</h2>
+		<p>
+			grumble.js exposes three methods, 'show', 'hide' and 'adjust'. The adjust call allows you to update position and angle.
+		</p>
+		<p>
+			Warning: Clicking on this link may damage your <abbr title="User Experience">UX</abbr>. <a href="#" id="darkside">(:p)</a>
+		</p>
+ -->
 		
 		<h2>What is this magic?</h2>
 		<p>
@@ -252,8 +256,8 @@ $('#myElement').grumble({
 		</footer>
 	</div> <!-- eo #container -->
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
-	<script src="js/jquery.grumble.min.js?v=1"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script src="js/jquery.grumble.min.js?v=2"></script>
 
 	<script>
 	
@@ -262,7 +266,7 @@ $('#myElement').grumble({
 				text: 'Bubble-tastic!', 
 				angle: 85, 
 				distance: 100, 
-				showAfter: 500 
+				showAfter: 500
 			}
 		);
 	
@@ -311,6 +315,32 @@ $('#myElement').grumble({
 			);
 
 		});
+	
+		/*$('#darkside').click(function(e){
+			var $me = $(this), interval;
+			
+			e.preventDefault();
+			
+			$me.grumble(
+				{
+					angle: 130,
+					text: 'Look at me!',
+					type: 'alt-', 
+					distance: 10,
+					hideOnClick: true,
+					onShow: function(){
+						var angle = 130, dir = 1;
+						interval = setInterval(function(){
+							(angle > 220 ? (dir=-1, angle--) : ( angle < 130 ? (dir=1, angle++) : angle+=dir));
+							$me.grumble('adjust',{angle: angle});
+						},25);
+					},
+					onHide: function(){
+						clearInterval(interval);
+					}
+				}
+			);
+		});*/
 	
 	</script>
 	
