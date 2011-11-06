@@ -11,7 +11,7 @@
 	<meta name="description" content="Examples and documentation on grumble.js">
 	<meta name="author" content="James Cryer">
 
-	<link rel="stylesheet" href="css/grumble.min.css?v=2">
+	<link rel="stylesheet" href="css/grumble.min.css?v=3">
 
 	<style>
 		body {
@@ -226,15 +226,42 @@ $('#myElement').grumble({
 	}
 });
 </pre>
-		<!--
-		<h2>The darkside of grumble.js</h2>
+		
+		<h2 id="thedarkside">The darkside of grumble.js</h2>
 		<p>
 			grumble.js exposes three methods, 'show', 'hide' and 'adjust'. The adjust call allows you to update position and angle.
 		</p>
 		<p>
 			Warning: Clicking on this link may damage your <abbr title="User Experience">UX</abbr>. <a href="#" id="darkside">(:p)</a>
 		</p>
- -->
+		<pre>
+$('#darkside').click(function(e){
+	var $me = $(this), interval;
+	
+	e.preventDefault();
+	
+	$me.grumble(
+		{
+			angle: 130,
+			text: 'Look at me!',
+			type: 'alt-', 
+			distance: 10,
+			hideOnClick: true,
+			onShow: function(){
+				var angle = 130, dir = 1;
+				interval = setInterval(function(){
+					(angle > 220 ? (dir=-1, angle--) : ( angle < 130 ? (dir=1, angle++) : angle+=dir));
+					$me.grumble('adjust',{angle: angle});
+				},25);
+			},
+			onHide: function(){
+				clearInterval(interval);
+			}
+		}
+	);
+});
+</pre>
+
 		
 		<h2>What is this magic?</h2>
 		<p>
@@ -257,9 +284,9 @@ $('#myElement').grumble({
 	</div> <!-- eo #container -->
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	<script src="js/jquery.grumble.min.js?v=2"></script>
-	<!--<script src="js/Bubble.js?v=2"></script>
-	<script src="js/jquery.grumble.js?v=2"></script>-->
+	<script src="js/jquery.grumble.min.js?v=3"></script>
+	<!-- script src="js/Bubble.js?v=2"></script>
+	<script src="js/jquery.grumble.js?v=2"></script -->
 
 	<script>
 	
@@ -272,10 +299,14 @@ $('#myElement').grumble({
 			}
 		);
 	
+		var isSequenceComplete = true;
 		$('#ex1').click(function(e){
 		
 			e.preventDefault();
 		
+			if(isSequenceComplete === false) return true;
+			isSequenceComplete = false;
+			
 			$('#grumble1').grumble(
 				{
 					text: '', 
@@ -312,13 +343,16 @@ $('#myElement').grumble({
 					angle: 85,
 					distance: 50,
 					showAfter: 4000,
-					hideAfter: 2000
+					hideAfter: 2000,
+					onHide: function(){
+						isSequenceComplete = true;
+					}
 				}
 			);
 
 		});
 	
-		/*$('#darkside').click(function(e){
+		$('#darkside').click(function(e){
 			var $me = $(this), interval;
 			
 			e.preventDefault();
@@ -342,16 +376,16 @@ $('#myElement').grumble({
 					}
 				}
 			);
-		});*/
+		});
 	
 	</script>
 	
-	<!--script>
+	<script>
 		var _gaq=[["_setAccount","UA-24631000-1"],["_trackPageview"]];
 		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
 		g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
 		s.parentNode.insertBefore(g,s)}(document,"script"));
-	</script -->
+	</script>
 
 </body>
 </html>

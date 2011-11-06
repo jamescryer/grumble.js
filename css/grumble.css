@@ -30,6 +30,7 @@
             .ie7 .grumble-text .outer, 
             .ie6 .grumble-text .outer {
                 display: block;
+                width: 85%;
                 position: absolute;
                 top: 48%;
                 left: 0;

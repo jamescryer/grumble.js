@@ -69,14 +69,14 @@
 						grumble: grumble,
 						button: button,
 						onHide: function(){
+							_private.isVisible = false;
+							$(document.body).unbind('click.bubble');
 							_private.doOnBeginHideCallback();
 							_private.doOnHideCallback();
 						}
 					});
 
-					if(options.showAfter) this.createFxQueue();
 					this.showBubble();
-					if(options.hideAfter) this.hideBubble();
 					this.prepareEvents();
 					
 				},
@@ -96,7 +96,6 @@
 				},
 
 				rePositionButton: function(){
-
 					if( !button ) return;
 
 					button
@@ -116,6 +115,8 @@
 
 				showBubble: function(){
 					if(_private.isVisible == true) return;
+					
+					if(options.showAfter) _private.createFxQueue();
 					
 					if($.browser.msie === true){
 						grumble.bubble.queue('fx',function(next){
@@ -139,19 +140,17 @@
 					}
 
 					grumble.bubble.queue('fx',function(next){
-						if(options.hideOnClick || options.hasHideButton) _private.hideOnClick();
-						next();
-					});
-
-					grumble.bubble.queue('fx',function(next){
 						_private.isVisible = true;
+						if(options.hideOnClick || options.hasHideButton) _private.hideOnClick();
 						_private.doOnShowCallback();
 						next();
 					});
+					
+					if(options.hideAfter) _private.hideBubble();
 				},
 
 				hideBubble: function(){
-					if(_private.isVisible == false) return;
+					//if(_private.isVisible == false) return;
 
 					grumble.bubble.delay(options.hideAfter);
 					grumble.text.delay(options.hideAfter);
@@ -202,15 +201,13 @@
 				},
 
 				hideOnClick: function(){
-					if(_private.isHideOnClickBound) return;
-
-					$(document.body)
-						.bind('click.bubble',function(){
+					setTimeout(function(){
+						var click = function(){
 							_private.hideBubble(grumble, button);
-							//$(this).unbind('click.bubble');
-						});
-						
-					_private.isHideOnClickBound = true;
+							$(document.body).unbind('click.bubble', click);
+						};
+						$(document.body).bind('click.bubble',click);
+					}, 1000);
 				},
 
 				prepareEvents: function(){
