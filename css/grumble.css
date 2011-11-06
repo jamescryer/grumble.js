@@ -18,6 +18,7 @@
         font-size: 14px;
         line-height: 14px;
         }
+        .ie7 .grumble-text,
         .ie6 .grumble-text {
             display:block;
             }
@@ -26,12 +27,14 @@
             vertical-align: middle;
             color:white;
             }
+            .ie7 .grumble-text .outer, 
             .ie6 .grumble-text .outer {
                 display: block;
                 position: absolute;
                 top: 48%;
                 left: 0;
                 }
+        .ie7 .inner,
         .ie6 .inner {
             position: relative;
             top: -50%
