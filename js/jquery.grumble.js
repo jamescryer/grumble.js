@@ -257,7 +257,7 @@
 	});
 
 	function calculateTextHeight(defaultSize, range, text){
-		var el = $('<div style="position:absolute;visibilty:hidden;width:'+defaultSize+'px;">'+text+'</div>')
+		var el = $('<div style="position:absolute;visibility:hidden;width:'+defaultSize+'px;">'+text+'</div>')
 					.appendTo($(document.body)),
 			height = el.outerHeight()*2+(defaultSize*0.20),/*the 20% is approx padding: could be more clever*/
 			index = $.inArray(defaultSize, range);
