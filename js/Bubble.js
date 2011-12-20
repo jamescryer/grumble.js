@@ -1,9 +1,10 @@
 /**   (c) 2011 James Cryer, Huddle (www.huddle.com) 	*/
 /**   http://jamescryer.github.com/grumble.js/ 		*/
 
-(function($, window){
+(function(window){
 
-    var defaults = {
+    var $ = window.jQuery, 
+	defaults = {
         type: '',
         text: '',
         top: 0,
@@ -151,6 +152,5 @@
 			}
 			return template;
 		}
-		
     };
-}($, window));
+}(window));
