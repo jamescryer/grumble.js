@@ -1,5 +1,4 @@
-/**   (c) 2011 James Cryer, Huddle (www.huddle.com) 	*/
-/**   http://jamescryer.github.com/grumble.js/ 		*/
+/** (c) 2011 James Cryer, Huddle (www.huddle.com) http://jamescryer.github.com/grumble.js/ 		*/
 (function (window) {
 
 	// $.fn.grumble.defaults references this object. $.fn.grumble.defaults should be used for extension

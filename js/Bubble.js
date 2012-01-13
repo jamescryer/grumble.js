@@ -1,5 +1,4 @@
-/**   (c) 2011 James Cryer, Huddle (www.huddle.com) 	*/
-/**   http://jamescryer.github.com/grumble.js/ 		*/
+/** @preserve   (c) 2011 James Cryer, Huddle (www.huddle.com)  http://jamescryer.github.com/grumble.js/ 		*/
 
 (function(window){
 
