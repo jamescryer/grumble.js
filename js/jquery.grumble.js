@@ -237,6 +237,22 @@
 					$me.bind('show.bubble',  function(event){
 						_private.showBubble(grumble, button);
 					});
+					
+					$me.bind('delete.bubble',  function(event){
+						grumble.bubble.hide().remove();
+						grumble.text.hide().remove();
+						if (button) button.hide().remove();
+						
+						// remove from liveBubbles array :
+						var len = liveBubbles.length;
+						for (var i = 0; i < len; i++){
+							if (grumble === liveBubbles[i].grumble){
+								liveBubbles.splice(i, 1);
+						    	break;
+						    	}
+						}
+						$me.removeData("hazGrumble");
+					});
 				}
 			};
 			_private.init();
