@@ -1,10 +1,10 @@
-/**   (c) 2011 James Cryer, Huddle (www.huddle.com) 	*/
-/**   http://jamescryer.github.com/grumble.js/ 		*/
-
-(function ($, Bubble) {
+/** (c) 2011 James Cryer, Huddle (www.huddle.com) http://jamescryer.github.com/grumble.js/ 		*/
+(function (window) {
 
 	// $.fn.grumble.defaults references this object. $.fn.grumble.defaults should be used for extension
-	var defaults = {
+	var $ = window.jQuery,
+	Bubble = window.GrumbleBubble,
+	defaults = {
 		text: '', // Accepts html
 		angle: 45, // 0-360
 		size: 50, // Default size
@@ -286,5 +286,5 @@
 
 		return defaultSize;
 	}
-
-}(jQuery, GrumbleBubble));
+	
+}(window));
