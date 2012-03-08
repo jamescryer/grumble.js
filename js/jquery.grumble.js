@@ -32,13 +32,18 @@
 		}
 
 		return this.each(function () {
-            var $me = $(this),
+            		var $me = $(this),
 				options = $.extend({}, $.fn.grumble.defaults, settings, $me.data('grumble') || {}),
-				offset = $me.position(),
 				size = calculateTextHeight(options.size, options.sizeRange, options.text),
 				grumble,
 				button,
 				_private;
+            		var offset;
+			if(options.context == "body"){
+				offset = $me.offset();
+			}else{
+				offset = $me.position();
+			}
 
 			if($.data(this, 'hazGrumble')){
 				$me.grumble('adjust', settings);
@@ -213,9 +218,14 @@
 
 				prepareEvents: function(){
 					$(window).bind('resize.bubble', function(){
-						var offset = $me.position(),
-							top = offset.top + ($me.height()),
-							left = offset.left + ($me.width()/2);
+						var offset;
+						if(options.context == "body"){
+							offset = $me.offset();
+						}else{
+							offset = $me.position();
+						}
+						var top = offset.top + ($me.height()),
+						    left = offset.left + ($me.width()/2);
 
 						grumble.adjust({
 							top: top,
