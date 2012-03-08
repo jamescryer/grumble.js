@@ -11,6 +11,7 @@
 		sizeRange: [50,100,150,200], // Depending on the amount of text, one of these sizes (px) will be used
 		distance: 0,
 		type: '', // this string is appended to the bubble CSS classname
+		context : "body",
 		showAfter: 0,
 		hideAfter: false,
 		hideOnClick: false,
@@ -31,13 +32,18 @@
 		}
 
 		return this.each(function () {
-            var $me = $(this),
+            		var $me = $(this),
 				options = $.extend({}, $.fn.grumble.defaults, settings, $me.data('grumble') || {}),
-				offset = $me.offset(),
 				size = calculateTextHeight(options.size, options.sizeRange, options.text),
 				grumble,
 				button,
 				_private;
+            		var offset;
+			if(options.context == "body"){
+				offset = $me.offset();
+			}else{
+				offset = $me.position();
+			}
 
 			if($.data(this, 'hazGrumble')){
 				$me.grumble('adjust', settings);
@@ -61,7 +67,7 @@
 						size: size,
 						distance: options.distance,
 						type: options.type
-					});
+					}, options.context);
 
 					if(options.hasHideButton) this.addButton();
 
@@ -212,9 +218,14 @@
 
 				prepareEvents: function(){
 					$(window).bind('resize.bubble', function(){
-						var offset = $me.offset(),
-							top = offset.top + ($me.height()),
-							left = offset.left + ($me.width()/2);
+						var offset;
+						if(options.context == "body"){
+							offset = $me.offset();
+						}else{
+							offset = $me.position();
+						}
+						var top = offset.top + ($me.height()),
+						    left = offset.left + ($me.width()/2);
 
 						grumble.adjust({
 							top: top,
