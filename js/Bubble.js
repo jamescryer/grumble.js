@@ -15,9 +15,9 @@
         textTemplate: '<div class="grumble-text" style="display:none;"><div class="outer"><div class="inner">{text}</div></div></div>'
     };
 
-    window.GrumbleBubble = function(options){
+    window.GrumbleBubble = function(options, context){
         this.options = $.extend({},defaults,options);
-        this.context = document.body;
+        this.context = $(context).get(); 
         this.css = {};
         this.create();
     };
