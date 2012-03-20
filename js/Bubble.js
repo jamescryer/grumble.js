@@ -12,12 +12,13 @@
         size: 50,
         distance: 50,
         template: '<div class="grumble" style="display:none;filter:progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\')">&#160;</div>',
-        textTemplate: '<div class="grumble-text" style="display:none;"><div class="outer"><div class="inner">{text}</div></div></div>'
+        textTemplate: '<div class="grumble-text" style="display:none;"><div class="outer"><div class="inner">{text}</div></div></div>',
+        context: $('body')
     };
 
-    window.GrumbleBubble = function(options, context){
+    window.GrumbleBubble = function(options){
         this.options = $.extend({},defaults,options);
-        this.context = $(context).get(); 
+        this.context = $(this.options.context); 
         this.css = {};
         this.create();
     };
@@ -25,7 +26,7 @@
     window.GrumbleBubble.prototype = {
 
         create: function(){
-	    var tmpl = window.GrumbleBubble.prototype.tmpl;
+    	    var tmpl = window.GrumbleBubble.prototype.tmpl;
             this.bubble = $( tmpl(this.options.template) );
             this.text = $( tmpl(this.options.textTemplate, { text:this.options.text }));
             this.prepare();

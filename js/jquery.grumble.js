@@ -11,7 +11,7 @@
 		sizeRange: [50,100,150,200], // Depending on the amount of text, one of these sizes (px) will be used
 		distance: 0,
 		type: '', // this string is appended to the bubble CSS classname
-		context : "body",
+		useRelativePositioning : false, // will position relative to the document by default
 		showAfter: 0,
 		hideAfter: false,
 		hideOnClick: false,
@@ -32,18 +32,23 @@
 		}
 
 		return this.each(function () {
-            		var $me = $(this),
-				options = $.extend({}, $.fn.grumble.defaults, settings, $me.data('grumble') || {}),
+            var $me = $(this),
+            	options = $.extend({}, $.fn.grumble.defaults, settings, $me.data('grumble') || {}),
 				size = calculateTextHeight(options.size, options.sizeRange, options.text),
 				grumble,
 				button,
-				_private;
-            		var offset;
-			if(options.context == "body"){
-				offset = $me.offset();
-			}else{
-				offset = $me.position();
+				_private,
+				offset,
+				context;
+
+			if( options.useRelativePositioning ) {
+				context = $me.offsetParent();
 			}
+
+			offset = getOffsets($me, context);
+
+			options.top = offset.top;
+			options.left = offset.left;
 
 			if($.data(this, 'hazGrumble')){
 				$me.grumble('adjust', settings);
@@ -52,9 +57,6 @@
 			} else {
 				$.data(this, 'hazGrumble', true);
 			}
-
-			options.top = offset.top + ($me.height());
-			options.left = offset.left + ($me.width()/2);
 
 			_private = {
 
@@ -66,8 +68,9 @@
 						angle: options.angle,
 						size: size,
 						distance: options.distance,
-						type: options.type
-					}, options.context);
+						type: options.type,
+						context: context // could be undefined
+					});
 
 					if(options.hasHideButton) this.addButton();
 
@@ -219,17 +222,12 @@
 				prepareEvents: function(){
 					$(window).bind('resize.bubble', function(){
 						var offset;
-						if(options.context == "body"){
-							offset = $me.offset();
-						}else{
-							offset = $me.position();
-						}
-						var top = offset.top + ($me.height()),
-						    left = offset.left + ($me.width()/2);
+
+						offset = getOffsets($me, context);
 
 						grumble.adjust({
-							top: top,
-							left: left
+							top: offset.top,
+							left: offset.left
 						});
 
 						_private.rePositionButton();
@@ -282,6 +280,24 @@
 			});
 		}
 	});
+
+	function getOffsets($me, context){
+		var offset,
+			marginTop;
+
+		if( context ) {
+			marginTop = Number($me.css('margin-top').replace("px", "")) || 0;
+			offset = $me.position();
+			offset.top += marginTop + context.scrollTop() + $me.height();
+			offset.left += $me.width()/2;
+		} else {
+			offset = $me.offset();
+			offset.top += $me.height();
+			offset.left += $me.width()/2;
+		}
+
+		return offset;
+	}
 
 	function calculateTextHeight(defaultSize, range, text){
 		var el = $('<div style="position:absolute;visibility:hidden;width:'+defaultSize+'px;">'+text+'</div>')
