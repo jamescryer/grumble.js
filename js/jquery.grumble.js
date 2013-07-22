@@ -22,7 +22,8 @@
 		onShow: function(){},
 		onBeginHide: function(){}
 	},
-	liveBubbles = [];
+	liveBubbles = [],
+	msieOld = navigator.appName === 'Microsoft Internet Explorer' && window.document.documentMode < 10;
 
     $.fn.grumble = function (settings, adjustments) {
 
@@ -127,7 +128,7 @@
 					
 					if(options.showAfter) _private.createFxQueue();
 					
-					if($.browser.msie === true){
+					if(msieOld){
 						grumble.bubble.queue('fx',function(next){
 							grumble.bubble.show();
 							next();
@@ -169,7 +170,7 @@
 						next();
 					});
 
-					if($.browser.msie === true){
+					if(msieOld){
 						grumble.bubble.queue('fx',function(next){
 							grumble.bubble.hide();
 							next();
