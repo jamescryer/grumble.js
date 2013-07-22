@@ -99,7 +99,7 @@
         },
 
         rotate: function(){
-            if($.browser.msie === true && window.document.documentMode < 10){
+            if(navigator.appName === 'Microsoft Internet Explorer' && window.document.documentMode < 10){
                 this.ieRotate();
             } else {
                 this.cssRotate();
